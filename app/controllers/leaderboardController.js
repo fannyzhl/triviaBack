@@ -2,11 +2,11 @@ const dbQuery = require("../db/dev/dbQuery");
 const { errorMessage, successMessage, status } = require("../helpers/status");
 
 const createNormalEntry = async (req, res) => {
-  const { username, time } = req.body;
+  const { username, questions } = req.body;
 
   const createNormalEntryQuery =
-    "INSERT INTO leader_normal( username, time) VALUES($1,$2) RETURNING *";
-  const values = [username, time];
+    "INSERT INTO leader_normal( username, questions) VALUES($1,$2) RETURNING *";
+  const values = [username, questions];
 
   try {
     const { rows } = await dbQuery.query(createNormalEntryQuery, values);
@@ -22,7 +22,7 @@ const createNormalEntry = async (req, res) => {
 
 const getAllNormalEntries = async (req, res) => {
   const getAllNormalEntriesQuery =
-    "SELECT * FROM leader_normal ORDER BY time ASC";
+    "SELECT * FROM leader_normal ORDER BY questions DESC";
 
   try {
     const { rows } = await dbQuery.query(getAllNormalEntriesQuery);

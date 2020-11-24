@@ -46,6 +46,7 @@ const createUser = async (req, res) => {
     return res.status(status.created).send(successMessage);
   } catch (error) {
     if (error.routine === "_bt_check_unique") {
+      //CAMBIAR
       errorMessage.error = "Correo ya registrado";
       return res.status(status.conflict).send(errorMessage);
     }

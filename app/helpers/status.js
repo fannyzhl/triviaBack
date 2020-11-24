@@ -11,9 +11,4 @@ const status = {
   nocontent: 204,
 };
 
-const trip_statuses = {
-  active: 1.0,
-  cancelled: 2.0,
-};
-
-module.exports = { successMessage, errorMessage, status, trip_statuses };
+module.exports = { successMessage, errorMessage, status };

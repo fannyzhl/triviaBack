@@ -27,7 +27,7 @@ const createLeaderNormalTable = () => {
   const leaderNormalQuery = `CREATE TABLE IF NOT EXISTS leader_normal
   (leaderNormal_id SERIAL PRIMARY KEY, 
   username VARCHAR(100) NOT NULL,  
-  time float NOT NULL)`;
+  questions float NOT NULL)`;
 
   pool
     .query(leaderNormalQuery)
@@ -49,6 +49,27 @@ const createLeaderRushTable = () => {
 
   pool
     .query(leaderRushQuery)
+    .then((res) => {
+      console.log(res);
+      pool.end();
+    })
+    .catch((err) => {
+      console.log(err);
+      pool.end();
+    });
+};
+
+const createMultiPlayerTable = () => {
+  const multiPlayerQuery = `CREATE TABLE IF NOT EXISTS multi_game
+  (game_id SERIAL PRIMARY KEY, 
+  game_code VARCHAR(100) NOT NULL,
+  player_one VARCHAR(100),  
+  player_two VARCHAR(100),
+  questions_one float,
+  questions_two float)`;
+
+  pool
+    .query(multiPlayerQuery)
     .then((res) => {
       console.log(res);
       pool.end();
@@ -102,16 +123,32 @@ const dropLeaderRushTable = () => {
     });
 };
 
+const dropMultiPlayerTable = () => {
+  const multiPlayerQuery = "DROP TABLE IF EXISTS multi_game";
+  pool
+    .query(multiPlayerQuery)
+    .then((res) => {
+      console.log(res);
+      pool.end();
+    })
+    .catch((err) => {
+      console.log(err);
+      pool.end();
+    });
+};
+
 const createAllTables = () => {
   createUserTable();
   createLeaderNormalTable();
   createLeaderRushTable();
+  createMultiPlayerTable();
 };
 
 const dropAllTables = () => {
   dropUserTable();
   dropLeaderNormalTable();
   dropLeaderRushTable();
+  dropMultiPlayerTable();
 };
 pool.on("remove", () => {
   console.log("client removed");
